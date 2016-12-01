@@ -1,0 +1,68 @@
+{% extends "utils/base.html" %} 
+{% load static %}
+
+{%block content%} 
+{%include "utils/navbarlanding.html" %}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            
+            <div class="item active">
+              <img class="first-slide" src="{% static "media/sdC1.jpg"%}" alt="First slide">
+            </div>    
+          
+          </div>
+        </div>
+
+        <div class="container">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Pregunta #1
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore minima laborum voluptas magnam, rem, perspiciatis voluptatibus, laboriosam consequatur, tempora soluta laudantium fuga. Nihil autem quo atque ab laudantium, praesentium similique.
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Pregunta #2
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel beatae, mollitia reiciendis! Ipsa possimus reiciendis deleniti quod ut sed facere expedita neque voluptates asperiores praesentium veritatis id, assumenda repellendus! Delectus.
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Pregunta #3
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                  <div class="panel-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum quisquam officia a cumque doloremque commodi reiciendis dolorem praesentium minus vel dolor architecto laborum unde dicta, sapiente, ducimus laudantium enim! Reiciendis?
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+       
+        <footer class="footer">
+          <div class="container-fluid">
+            <p class="text-muted">Drenen Systems | 2016.</p>
+          </div>
+        </footer>
+{%endblock%}

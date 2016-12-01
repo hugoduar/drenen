@@ -1,0 +1,43 @@
+{% extends "utils/base.html" %} 
+{% load static %}
+
+{%block content%} 
+{%include "utils/navbarlanding.html" %}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            
+            <div class="item active">
+              <img class="first-slide" src="{% static "media/sdC2.jpg"%}" alt="First slide">
+            </div>    
+          
+          </div>
+        </div>
+
+        <div class="container">
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-md-3" style="background-color: #007be4; color: #fff;">
+                    <h3>Contactanos en:</h3>
+                    <h4>email:</h4>
+                    <p><i>contacto@sgss.com.mx</i></p>
+                    <h4>Teléfono:</h4>
+                    <p><i>(+52) 1 55 12 23 45 78</i></p>
+                </div>
+                <div class="clas-md-2"></div>
+                <div class="col-md-7">
+                    <h3>Deja tu comentario:</h3>
+                    <form action="#" class="form-signin">
+                        <input type="text" id="inputNombre" class="form-control" placeholder="Nombre / Boleta" required>
+                        <input type="email" id="inputEmail" class="form-control" placeholder="Correo electrónico" required>
+                        <textarea name="inputCuerpo" id="inputCuerpo" style="width: 100%;" placeholder="Mensaje"></textarea>
+                        <button type="submit" class="btn btn-xs btn-info btn-block">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+       
+        <footer class="footer">
+          <div class="container-fluid">
+            <p class="text-muted">Drenen Systems | 2016.</p>
+          </div>
+        </footer>
+{%endblock%}

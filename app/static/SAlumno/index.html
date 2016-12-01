@@ -1,0 +1,96 @@
+<html lang="es">
+    <head>
+        <title>SGSS Alumnos | 2016</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+        <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../css/superslides.css">
+        <link rel="stylesheet" href="../css/auxiliar.css">
+        <link rel="icon" href="../favicon/favicon.png">
+
+    </head>
+        
+    <body background="../media/swirl_pattern.png">
+       <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><strong>SGSS 1.2 - Alumnos</strong></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              
+               <ul class="nav navbar-nav navbar-right">
+                <li><a href="../index.html"><button class="btn btn-md btn-danger btn-block" type="submit">Salir</button></a></li>
+               </ul>
+              
+            </div>
+          </div>
+        </nav>
+        
+        <div class="container"  style="margin-top: 80px;">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>REPORTE ATRASADO!</strong> No has subido el reporte correspondiente al mes de Octubre.
+            </div>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>FALTA!</strong> El dia de ayer no asististe al Servicio Social, de no ser asi envia un mensaje a tu coordinador.
+            </div>
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>INFORMACIÓN!</strong> Del 18 al 21 de Noviembre no habra Servicio Social.
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Información del alumno</h2>
+                <h3>Fecha de registro</h3>
+                <input type="text" id="fechaRegistro" class="form-control" value="08/08/2016" disabled>
+                <h3>Fecha aproximada de termino</h3>
+                <input type="text" id="fechaTermino" class="form-control" value="02/2017" disabled>
+                <h3>Reportes Realizados</h3>
+                <input type="text" id="reportesR" class="form-control" value="2" disabled>
+                <h3>Documentos pendientes</h3>
+                <input type="text" id="documentP" class="form-control" value="1 - (Constancia de estudios)" disabled><br>
+                <button class="btn btn-md btn-info btn-block" type="submit" data-toggle="modal" data-target="#reporte">Llenado de Reportes</button>
+            </div>
+        </div>
+       
+        <footer class="footer">
+          <div class="container-fluid">
+            <p class="text-muted">Drenen Systems | 2016.</p>
+          </div>
+        </footer>
+       
+       <div class="modal fade" id="reporte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Reporte</h3>
+              </div>
+              <div class="modal-body">
+                <form action="#" class="form-signin">
+                    <h4 class="form-signin-heading">Reporte del dia: <strong>10/11/2016</strong></h4>
+                    <textarea name="observaciones" style="width: 100%;" class="form-control"></textarea>
+                    <br>
+                    <button type="reset" class="btn btn-default btn-block">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>       
+       
+        <script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap.js"></script>
+        <script src="../js/jquery.superslides.js"></script>
+        <script src="../js/modal.js"></script>
+    </body>
+</html>

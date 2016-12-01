@@ -1,0 +1,352 @@
+{% extends "utils/base.html" %} 
+{%block content%} 
+{%include "utils/navbar.html" with tipo_usuario="Administrador"%}
+<div class="container" style="margin-top: 80px;">
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>USUARIOS ATRASADOS!</strong> Se encontro a alumnos con observacione de atrasos en entrega acumulados.
+    </div>
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>USUARIOS NUEVOS!</strong> Se encontraron nuevos registros.
+    </div>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>FINALIZARON!</strong> Se encontraron alumnos que han terminado el servicio.
+    </div>
+</div>
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Buscar Alumno, Boleta, Coordinador, etc">
+                    <span class="input-group-btn"><button class="btn btn-default">Buscar</button></span>
+                </div>
+            </div>
+        </div>
+        <h2>Alumnos Registrados</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nombre</th>
+                        <th>Institución</th>
+                        <th>Carrera</th>
+                        <th>Semestre</th>
+                        <th>Coordinador</th>
+                        <th>Lugar de Servicio</th>
+                        <th>Meses faltantes</th>
+                        <th>Reportes entregados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hugo Duhart</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>5</td>
+                        <td>Martha Rosa</td>
+                        <td>Banco de México</td>
+                        <td>4</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Serch Montaño</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>5</td>
+                        <td>Martha Rosa</td>
+                        <td>ESCOM</td>
+                        <td>4</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>67</td>
+                        <td>Jairo Reyez</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>6</td>
+                        <td>Ulises Velez</td>
+                        <td>ESCOM</td>
+                        <td>3</td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <h2>Alumnos Atrasados</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nombre</th>
+                        <th>Institución</th>
+                        <th>Carrera</th>
+                        <th>Semestre</th>
+                        <th>Coordinador</th>
+                        <th>Lugar de Servicio</th>
+                        <th>Reportes atrasados</th>
+                        <th>Dar de baja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hugo Duhart</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>5</td>
+                        <td>Martha Rosa</td>
+                        <td>Banco de México</td>
+                        <td>4</td>
+                        <td>
+                            <button class="btn btn-md btn-danger" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">X</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Serch Montaño</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>5</td>
+                        <td>Martha Rosa</td>
+                        <td>ESCOM</td>
+                        <td>4</td>
+                        <td>
+                            <button class="btn btn-md btn-danger" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">X</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>
+                            <button class="btn btn-md btn-danger" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">X</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>67</td>
+                        <td>Jairo Reyez</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>6</td>
+                        <td>Ulises Velez</td>
+                        <td>ESCOM</td>
+                        <td>3</td>
+                        <td>
+                            <button class="btn btn-md btn-danger" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">X</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <h2>Alumnos que Concluyeron</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nombre</th>
+                        <th>Institución</th>
+                        <th>Carrera</th>
+                        <th>Semestre</th>
+                        <th>Coordinador</th>
+                        <th>Lugar de Servicio</th>
+                        <th>Reportes entregados</th>
+                        <th>Liberar servicio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hugo Duhart</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>5</td>
+                        <td>Martha Rosa</td>
+                        <td>Banco de México</td>
+                        <td>6</td>
+                        <td>
+                            <button class="btn btn-md btn-success" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">✓</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Serch Montaño</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>5</td>
+                        <td>Martha Rosa</td>
+                        <td>ESCOM</td>
+                        <td>6</td>
+                        <td>
+                            <button class="btn btn-md btn-success" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">✓</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>6</td>
+                        <td>
+                            <button class="btn btn-md btn-success" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">✓</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>67</td>
+                        <td>Jairo Reyez</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>6</td>
+                        <td>Ulises Velez</td>
+                        <td>ESCOM</td>
+                        <td>6</td>
+                        <td>
+                            <button class="btn btn-md btn-success" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">✓</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <h2>Alumnos Nuevos</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nombre</th>
+                        <th>Institución</th>
+                        <th>Carrera</th>
+                        <th>Semestre</th>
+                        <th>Coordinador</th>
+                        <th>Lugar de Servicio</th>
+                        <th>Documentos entregados</th>
+                        <th>Aceptar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hugo Duhart</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>5</td>
+                        <td>
+                            <select class="form-control">
+                            </select>
+                        </td>
+                        <td>Banco de México</td>
+                        <td>1</td>
+                        <td>
+                            <button class="btn btn-md btn-success" type="submit">✓</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Serch Montaño</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>5</td>
+                        <td>
+                            <select class="form-control">
+                            </select>
+                        </td>
+                        <td>ESCOM</td>
+                        <td>3</td>
+                        <td>
+                            <button class="btn btn-md btn-success" type="submit">✓</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Jairo Reyez</td>
+                        <td>ESCOM</td>
+                        <td>ISC</td>
+                        <td>6</td>
+                        <td>
+                            <select class="form-control">
+                            </select>
+                        </td>
+                        <td>ESCOM</td>
+                        <td>2</td>
+                        <td>
+                            <button class="btn btn-md btn-success" type="submit">✓</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container-fluid">
+        <p class="text-muted">Drenen Systems | 2016.</p>
+    </div>
+</footer>
+<div class="modal fade" id="reporte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Reporte</h3>
+            </div>
+            <div class="modal-body">
+                <form action="#" class="form-signin">
+                    <h4 class="form-signin-heading">Reporte del dia: <strong>10/11/2016</strong></h4>
+                    <textarea name="observaciones" style="width: 100%;" class="form-control"></textarea>
+                    <br>
+                    <button type="reset" class="btn btn-default btn-block">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>Confirmación</h3>
+                <div class="cotainer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-success btn-block">Si</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="reset" class="btn btn-danger btn-block">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

@@ -1,0 +1,23 @@
+{% load static %}
+
+<html lang="es">
+    <head>
+        <title>SGSS Alumnos | 2016</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+        <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+        <link rel="stylesheet" href="{% static "css/superslides.css" %}">
+        <link rel="stylesheet" href="{% static "css/auxiliar.css" %}">
+        <link rel="icon" href="{% static "favicon/favicon.png" %}">
+    </head>
+        
+    <body background="{% static "media/swirl_pattern.png" %}">
+        
+        {%block content%}{%endblock%}      
+       
+        <script src="{% static "js/jquery.js" %}"></script>
+        <script src="{% static "js/bootstrap.js" %}"></script>
+        <script src="{% static "js/jquery.superslides.js" %}"></script>
+        <script src="{% static "js/modal.js" %}"></script>
+    </body>
+</html>

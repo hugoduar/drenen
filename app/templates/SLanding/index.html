@@ -1,0 +1,68 @@
+{% extends "utils/base.html" %} 
+{% load static %}
+
+{%block content%} 
+{%include "utils/navbarlanding.html" %}
+<div id="slides">
+            <ul class="slides-container">
+                <li><img src="{% static "media/sd1.jpg" %}"></li>
+                <li><img src="{% static "media/sd2.jpg" %}"></li>
+                <li><img src="{% static "media/sd3.jpg" %}"></li>
+            </ul>
+        </div>
+        <br>
+        <div class="container marketing">
+            <div class="row">
+             {% for entrada in entradas %}
+                <div class="col-lg-4">
+                 
+                  <img class="img-square" src="{% if entrada.imagen %}{{entrada.imagen.url}}{% endif %}" alt="Generic placeholder image" width="140" height="140">
+                  <h2>{{entrada.titulo}}</h2>
+                  <p>{{entrada.contenido}}</p>
+                  <p><a class="btn btn-default" href="#" role="button">Leer más &raquo;</a></p>
+
+                </div><!-- /.col-lg-4 -->
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        <footer class="footer">
+          <div class="container-fluid">
+            <p class="text-muted">Drenen Systems | 2016.</p>
+          </div>
+        </footer>
+
+        <div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Registro</h3>
+              </div>
+              <div class="modal-body">
+                <form id="register_form" action="register" method="POST" class="form-signin">
+                    {% csrf_token %}
+                    <h4 class="form-signin-heading">Datos de Usuario</h4>
+                    <input type="text" id="inputUser" class="form-control" placeholder="Nombre de Usuario" required name="username">
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email" required name="email">
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password1">
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Repetir password" required name="password2">
+                    <h4 class="form-signin-heading">Datos de Escolares</h4>
+                    <input type="text" id="inputEscuela" class="form-control" placeholder="Escuela" required  name="escuela">                    
+                    <input type="text" id="inputCarrera" class="form-control" placeholder="Carrera" required  name="carrera">
+                    <input type="text" id="inputGrupo" class="form-control" placeholder="Grupo" required name="grupo">
+                    <input type="text" id="inputBoleta" class="form-control" placeholder="Boleta" required  name="boleta">
+                    <h4 class="form-signin-heading">Datos Generales</h4>
+                    <input type="text" id="inputNombre" class="form-control" placeholder="Nombre(S)" required name="nombre">
+                    <input type="text" id="inputApaterno" class="form-control" placeholder="Apellido paterno" required name="apellido_paterno">
+                    <input type="text" id="inputAmaterno" class="form-control" placeholder="Apellido materno" required name="apellido_materno">
+                    <input type="tel" id="inputCel" class="form-control" placeholder="Telefono / Celular" required name="telefono">
+                    <br>
+                    <button type="reset" class="btn btn-default btn-block">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>  
+{%endblock%}
