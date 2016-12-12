@@ -19,7 +19,7 @@
                   <img class="img-square" src="{% if entrada.imagen %}{{entrada.imagen.url}}{% endif %}" alt="Generic placeholder image" width="140" height="140">
                   <h2>{{entrada.titulo}}</h2>
                   <p>{{entrada.contenido}}</p>
-                  <p><a class="btn btn-default" href="#" role="button">Leer más &raquo;</a></p>
+                  <p><a class="btn btn-default" href="/noticia/{{entrada.id}}" role="button">Leer más &raquo;</a></p>
 
                 </div><!-- /.col-lg-4 -->
                 {% endfor %}

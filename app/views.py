@@ -4,6 +4,8 @@ from django.template import RequestContext
 
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import get_object_or_404
+
 from app.forms import *
 from app.models import *
 
@@ -18,7 +20,7 @@ from django.contrib.auth.models import User
 
 def home(request):
 	context = RequestContext(request)
-	entradas = Entrada.objects.all()[:3]
+	entradas = Entrada.objects.all().order_by('-fecha')[:3]
 	return render(request, 'SLanding/index.html', context={"entradas":entradas})
 
 def faq(request):
@@ -35,18 +37,26 @@ def home_alumno(request):
 	if request.user.is_active:
 		alumno = Alumno.objects.get(user=request.user)
 		num_reportes = Reporte.objects.filter(alumno=alumno).count()
+		alertas = AlertaAlumno.objects.filter(user=request.user)
 
-	return render(request, 'SAlumno/index.html', context={"alumno":alumno, "num_reportes":num_reportes})
+	return render(request, 'SAlumno/index.html', context={"alumno":alumno, "num_reportes":num_reportes, "alertas":alertas})
 
 def reporte(request):
 	context = RequestContext(request)
-	reporte_form = ReporteForm(data=request.POST)
+	reporte_form = ReporteForm(request.POST, request.FILES)
 	reporte = reporte_form.save(commit=False)
 	reporte.alumno = Alumno.objects.get(user=request.user)
 	reporte.save()
 	
 	return HttpResponseRedirect('/alumno')
 
+def aprobar_reporte(request):
+	context = RequestContext(request)
+	reporte = Reporte.objects.get(id=request.POST['id_reporte'])
+	reporte.status = True
+	reporte.save()
+	AlertaAlumno.objects.filter(user=reporte.alumno.user).delete()
+	return HttpResponseRedirect('/coordinador')
 
 
 
@@ -55,6 +65,9 @@ def home_coordinador(request):
 	alumnos = []
 	alumnos_atrasados = []
 	alumnos_from_db = Alumno.objects.all()
+	ent = True
+	entradas = Entrada.objects.all()
+	reportes = Reporte.objects.filter(status=False)
 	for alumno in alumnos_from_db:
 		num_reportes = Reporte.objects.filter(alumno=alumno).count()
 		num_reportes_atrasados = Reporte.objects.filter(alumno=alumno, status=False).count()
@@ -65,8 +78,8 @@ def home_coordinador(request):
 	 	if num_reportes_atrasados>0:
 	 		alumno.num_reportes_atrasados = num_reportes_atrasados 
 	 		alumnos_atrasados.append(alumno)
-
-	return render(request, 'SCoordinador/index.html', context={"alumnos":alumnos, "alumnos_atrasados":alumnos_atrasados})
+    
+	return render(request, 'SCoordinador/index.html', context={"alumnos":alumnos, "alumnos_atrasados":alumnos_atrasados, "entradas":entradas, "ent":ent, "reportes":reportes})
 
 def home_administrador(request):
 	context = RequestContext(request)
@@ -113,6 +126,33 @@ def register(request):
         form = UserForm()
         return HttpResponseRedirect('/')
 
+def noticia(request, num):
+	context = RequestContext(request)
+	entrada = Entrada.objects.get(pk=num)
+	return render_to_response("SLanding/noticia_detail.html", {"entrada": entrada}, context)
+
+def entrada(request):
+    context = RequestContext(request)
+    entrada_form = EntradaForm(request.POST, request.FILES)
+    entrada = entrada_form.save(commit=False)
+    entrada.save()
+    return HttpResponseRedirect('/coordinador')
+def modificar_entrada(request):
+    obj = get_object_or_404(Entrada, pk=request.POST['id_entrada'])
+    form = EntradaForm(request.POST or None,
+                        request.FILES or None, instance=obj)
+    if request.method == 'POST':
+        if form.is_valid():
+           form.save()
+           return redirect('/coordinador')
+    return HttpResponseRedirect('/coordinador')
+
+def eliminar_entrada(request):
+    context = RequestContext(request)
+    entrada = Entrada.objects.get(id=request.POST['id_entrada'])
+    entrada.delete()
+    return HttpResponseRedirect('/coordinador#menu2')
+
 def login(request):
     context = RequestContext(request)
     user = None
@@ -123,7 +163,13 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
-                return HttpResponseRedirect('/alumno')
+                if Alumno.objects.filter(user=user).exists():
+                	request.session['user_type'] = 'alumno'
+                	return HttpResponseRedirect('/alumno')
+                elif Coordinador.objects.filter(user=user).exists():
+                	request.session['user_type'] = 'coordinador'
+                	return HttpResponseRedirect('/coordinador')
+
             else:
                 pass
         else:
@@ -142,6 +188,14 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 
+def enviar_alerta(request):
+	context = RequestContext(request)
+	user  = User.objects.get(id=request.POST['id_user'])
+	alerta = AlertaAlumno()
+	alerta.contenido = 'REPORTE ATRASADO!'
+	alerta.user = user
+	alerta.save()
+	return HttpResponseRedirect('/coordinador')
 
 
 

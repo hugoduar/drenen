@@ -1,164 +1,168 @@
-{% extends "utils/base.html" %} 
+
+
+{% extends "utils/base.html" %}
+{% load static %}
+
 {%block content%} 
 {%include "utils/navbar.html" with tipo_usuario="Coordinador"%}
 <div class="container" style="margin-top: 80px;">
+    {% if alumnos_atrasados %}
     <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>USUARIOS ATRASADOS!</strong> Se encontro a alumnos con observacione de atrasos en entrega acumulados.
     </div>
-    <div class="alert alert-info alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>USUARIOS NUEVOS!</strong> Se encontraron nuevos registros.
-    </div>
-    <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>FINALIZARON!</strong> Se encontraron alumnos que han terminado el servicio.
-    </div>
+    {% endif %}
 </div>
 <div class="container">
     <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Buscar Alumno, Boleta, Coordinador, etc">
-                    <span class="input-group-btn"><button class="btn btn-default">Buscar</button></span>
-                </div>
-            </div>
-        </div>
-        <h2>Ultimos Reportes</h2>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Nombre</th>
-                        <th>Institución</th>
-                        <th>Carrera</th>
-                        <th>Semestre</th>
-                        <th>Coordinador</th>
-                        <th>Lugar de Servicio</th>
-                        <th>Meses faltantes</th>
-                        <th>Reportes entregados</th>
-                        <th>Ver Último Reporte</th>
-                        <th>Aprobar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for alumno in alumnos %}
-                    <tr>
-                        <td>{{alumno.id}}</td>
-                        <td>{{alumno.nombre}} {{alumno.nombre}}</td>
-                        <td>{{alumno.escuela}}</td>
-                        <td>{{alumno.carrera}}</td>
-                        <td>{{alumno.semestre}}</td>
-                        <td>{{alumno.coordinador}}</td>
-                        <td>{{alumno.lugar.nombre}}</td>
-                        <td>{{alumno.termino}}</td>
-                        <td>{{alumno.num_reportes}}</td>
-                        <td>
-                            <button class="btn btn-md btn-info" type="submit" data-toggle="modal" data-target="reporte">Ver Reporte</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-md btn-success" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">✓</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <hr>
-        <h2>Alumnos Atrasados</h2>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Nombre</th>
-                        <th>Institución</th>
-                        <th>Carrera</th>
-                        <th>Semestre</th>
-                        <th>Coordinador</th>
-                        <th>Lugar de Servicio</th>
-                        <th>Reportes atrasados</th>
-                        <th>Mandar Alerta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for alumno in alumnos_atrasados %}
-                    <tr>
-                        <td>{{alumno.id}}</td>
-                        <td>{{alumno.nombre}}</td>
-                        <td>{{alumno.escuela}}</td>
-                        <td>{{alumno.carrera}}</td>
-                        <td>{{alumno.grupo}}</td>
-                        <td>{{alumno.coordinador}}</td>
-                        <td>{{alumno.lugar}}</td>
-                        <td>{{alumno.num_reportes_atrasados}}</td>
-                        <td>
-                            <button class="btn btn-md btn-warning" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">!</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <hr>
-        <h2>Información de la Página</h2>
-        <button class="btn btn-md btn-block btn-success" data-toggle="modal" data-target="#noticia">Nueva Entrada</button>
-        <br>
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h3 class="featurette-heading">18 al 21 de Nov. <span class="text-muted">se suspende Servicio.</span></h3>
-                <p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto maiores sit aliquam quam reprehenderit, repellendus itaque repellat dolores reiciendis quis? Id est nemo sit ipsa amet quibusdam itaque, iste ducimus.</p>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-md btn-block btn-info" data-toggle="modal" data-target="#mNoticia">Modificar</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-md btn-block btn-danger" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">Eliminar</button>
+        
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#home">Últimos reportes</a></li>
+          <li><a data-toggle="tab" href="#menu1">Reportes atrasados</a></li>
+          <li><a data-toggle="tab" href="#menu2">Noticias</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="home" class="tab-pane fade in active">
+            <h2>Últimos Reportes</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar Alumno, Boleta, Coordinador, etc" id="search_ultimos" onkeyup="search_on_table('tblultimos', 'search_ultimos')">
+                        <span class="input-group-btn"><button class="btn btn-default">Buscar</button></span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
-                <img class="img-square featurette-image img-responsive center-block" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 100%;">
+            <div class="table-responsive">
+                <table class="table table-striped" id="tblultimos">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nombre</th>
+                            <th>Institución</th>
+                            <th>Carrera</th>
+                            <th>Semestre</th>
+                            <th>Coordinador</th>
+                            <th>Lugar de Servicio</th>
+                            <th>Fecha de termino</th>
+                            <th>Reportes entregados</th>
+                            <th>Título reporte</th>
+                            <th>Ver Reporte</th>
+                            <th>Aprobar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reporte in reportes %}
+                        <tr>
+                            <td>{{reporte.id}}</td>
+                            <td>{{reporte.alumno.nombre}}</td>
+                            <td>{{reporte.alumno.escuela}}</td>
+                            <td>{{reporte.alumno.carrera}}</td>
+                            <td>{{reporte.alumno.semestre}}</td>
+                            <td>{{reporte.alumno.coordinador}}</td>
+                            <td>{{reporte.alumno.lugar.nombre}}</td>
+                            <td>{{reporte.alumno.termino}}</td>
+                            <td>{{reporte.alumno.num_reportes}}</td>
+                            <td>{{reporte.titulo}}</td>
+                            <td>
+                                <button class="btn btn-md btn-info" type="submit" data-toggle="modal" data-target="#reporte" onclick="updateReporteModal('{{reporte.titulo}}', '{{reporte.descripcion}}', '{% if reporte.imagen %}{{reporte.imagen.url}}{% endif %}')">Ver Reporte</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-md btn-success" type="submit" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm" onclick="updateConfirmModal('/aprobar_reporte','id_reporte' , '{{reporte.id}}')">✓</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7 col-md-push-5">
-                <h3 class="featurette-heading">Punto extra <span class="text-muted">en Ingenieria de Sw a todos.</span></h3>
-                <p style="text-align: justify;">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-md btn-block btn-info" data-toggle="modal" data-target="#mNoticia">Modificar</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-md btn-block btn-danger" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">Eliminar</button>
+          </div>
+          <div id="menu1" class="tab-pane fade">
+            <h2>Alumnos Atrasados</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nombre</th>
+                            <th>Institución</th>
+                            <th>Carrera</th>
+                            <th>Semestre</th>
+                            <th>Coordinador</th>
+                            <th>Lugar de Servicio</th>
+                            <th>Reportes atrasados</th>
+                            <th>Mandar Alerta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alumno in alumnos_atrasados %}
+                        <tr>
+                            <td>{{alumno.id}}</td>
+                            <td>{{alumno.nombre}}</td>
+                            <td>{{alumno.escuela}}</td>
+                            <td>{{alumno.carrera}}</td>
+                            <td>{{alumno.grupo}}</td>
+                            <td>{{alumno.coordinador}}</td>
+                            <td>{{alumno.lugar}}</td>
+                            <td>{{alumno.num_reportes_atrasados}}</td>
+                            <td>
+                                <button class="btn btn-md btn-warning" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm" onclick="updateConfirmModal('/enviar_alerta','id_user' , '{{alumno.user.id}}')">!</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+          <div id="menu2" class="tab-pane fade">
+            <h2>Información de la Página</h2>
+            <button class="btn btn-md btn-block btn-success" data-toggle="modal" data-target="#noticia">Nueva Entrada</button>
+            <br>
+            {% for entrada in entradas %}
+            {% if forloop.counter|divisibleby:2 %}
+           
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h3 class="featurette-heading">{{entrada.titulo}}</h3>
+                    <p style="text-align: justify;">{{entrada.contenido}}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-md btn-block btn-info" data-toggle="modal" data-target="#mNoticia" onclick="updateModificarNoticia('{{entrada.id}}', '{{entrada.titulo}}', '{{entrada.contenido}}')">Modificar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-md btn-block btn-danger" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm" onclick="updateConfirmModal('/eliminar_entrada', 'id_entrada', '{{entrada.id}}')">Eliminar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-5 col-md-pull-7">
-                <img class="img-square featurette-image img-responsive center-block" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 100%;">
-            </div>
-        </div>
-        <hr class="featurette-divider">
-        <div class="row featurette">
-            <div class="col-md-7">
-                <h3 class="featurette-heading">Alguna otra noticia importante <span class="text-muted">(っ◕‿◕)っ</span></h3>
-                <p style="text-align: justify;">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-md btn-block btn-info" data-toggle="modal" data-target="#mNoticia">Modificar</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-md btn-block btn-danger" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm">Eliminar</button>
-                    </div>
+                <div class="col-md-5">
+                    <img class="img-square featurette-image img-responsive center-block" src="{% if entrada.imagen %}{{entrada.imagen.url}}{% endif %}" alt="Generic placeholder image" style="width: 100%;">
                 </div>
             </div>
-            <div class="col-md-5">
-                <img class="img-square featurette-image img-responsive center-block" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 100%;">
+            <hr class="featurette-divider">
+            {% else %}
+            <div class="row featurette">
+                <div class="col-md-7 col-md-push-5">
+                    <h3 class="featurette-heading">{{entrada.titulo}}</h3>
+                    <p style="text-align: justify;">{{entrada.contenido}}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-md btn-block btn-info" data-toggle="modal" data-target="#mNoticia" onclick="updateModificarNoticia('{{entrada.id}}', '{{entrada.titulo}}', '{{entrada.contenido}}')">Modificar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-md btn-block btn-danger" type="submit" data-toggle="modal" data-target=".bs-example-modal-sm" onclick="updateConfirmModal('/eliminar_entrada', 'id_entrada', '{{entrada.id}}')">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-md-pull-7">
+                    <img class="img-square featurette-image img-responsive center-block" src="{% if entrada.imagen %}{{entrada.imagen.url}}{% endif %}" alt="Generic placeholder image" style="width: 100%;">
+                </div>
             </div>
+            <hr class="featurette-divider">
+            {%endif%}
+            {%endfor%}
+          </div>
         </div>
+        <!-- ******************************************************** -->
+        
     </div>
 </div>
 <footer class="footer">
@@ -174,8 +178,9 @@
                 <h3 class="modal-title" id="myModalLabel">Reporte</h3>
             </div>
             <div class="modal-body">
-                <h4>Jimenez Duhart Victor Hugo</h4>
-                <img style="width:100%;" src="../media/reporteDemo.jpg">
+                <h4 id="titulo_reporte"></h4>
+                <p id="descripcion_reporte"> </p>
+                <img id="imagen_reporte" style="width:100%;" src="">
             </div>
         </div>
     </div>
@@ -188,11 +193,12 @@
                 <h3 class="modal-title" id="myModalLabel">Nueva Entrada</h3>
             </div>
             <div class="modal-body">
-                <form action="#" class="form-signin">
-                    <input type="text" class="form-control" name="titulo" placeholder="Titulo" required>
-                    <textarea name="observaciones" style="width: 100%;" class="form-control" placeholder="Contenido"></textarea>
+                <form action="/entrada" class="form-signin" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" placeholder="Titulo" required name="titulo">
+                    <textarea style="width: 100%;" class="form-control" placeholder="Contenido" name="contenido"></textarea>
                     <p>Imagen:
-                        <input type="file" class="form-control">
+                        <input type="file" class="form-control" name="imagen">
                     </p>
                     <br>
                     <button type="reset" class="btn btn-default btn-block">Cancelar</button>
@@ -210,11 +216,13 @@
                 <h3 class="modal-title" id="myModalLabel">Modificar Entrada</h3>
             </div>
             <div class="modal-body">
-                <form action="#" class="form-signin">
-                    <input type="text" class="form-control" name="titulo" value="18 al 21 de Nov. se suspende Servicio." required>
-                    <textarea name="observaciones" style="width: 100%;" class="form-control" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto maiores sit aliquam quam reprehenderit, repellendus itaque repellat dolores reiciendis quis? Id est nemo sit ipsa amet quibusdam itaque, iste ducimus."></textarea>
+                <form action="/modificar_entrada" method="POST" class="form-signin" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_entrada" id="id_entrada_modal" value="">
+                    <input id="titulo_entrada_modal" type="text" class="form-control" name="titulo" value="18 al 21 de Nov. se suspende Servicio." required>
+                    <textarea id="contenido_entrada_modal" name="contenido" style="width: 100%;" class="form-control" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto maiores sit aliquam quam reprehenderit, repellendus itaque repellat dolores reiciendis quis? Id est nemo sit ipsa amet quibusdam itaque, iste ducimus."></textarea>
                     <p>Imagen:
-                        <input type="file" class="form-control">
+                        <input id="id_imagen" name="imagen" type="file" class="form-control">
                     </p>
                     <br>
                     <button type="reset" class="btn btn-default btn-block">Cancelar</button>
@@ -232,7 +240,11 @@
                 <div class="cotainer">
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="submit" class="btn btn-success btn-block">Si</button>
+                            <form id="form_1" action="/" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" id="input_1" name="nothing" value="noghint">
+                                <button type="submit" class="btn btn-success btn-block">Si</button>
+                            </form>
                         </div>
                         <div class="col-md-6">
                             <button type="reset" class="btn btn-danger btn-block">No</button>
@@ -244,3 +256,26 @@
     </div>
 </div>
 {%endblock%}
+{% block extrajs%}
+ <script src="{% static "js/tablefilter.js" %}"></script>
+ <script>
+     function updateReporteModal(titulo, desc, img){
+            $('#titulo_reporte').text(titulo);
+            $('#descripcion_reporte').text(desc);
+            $('#imagen_reporte').attr('src', img)
+
+     }
+     function updateConfirmModal(form_action, inp_name, inp_value){
+            $('#input_1').attr('name', inp_name);
+            $('#input_1').attr('value', inp_value);
+            $('#form_1').attr('action', form_action);
+     }
+     function updateModificarNoticia(id_entrada, titulo, contenido){
+            $('#id_entrada_modal').attr('value', id_entrada);
+            $('#titulo_entrada_modal').attr('value', titulo);
+            $('#contenido_entrada_modal').text(contenido);
+     }
+
+ </script>
+{% endblock%}
+

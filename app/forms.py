@@ -66,10 +66,18 @@ class AlumnoForm(forms.ModelForm):
 class ReporteForm(forms.ModelForm):
   class Meta:
     model = Reporte
-    fields = ['titulo', 'descripcion']
+    fields = ['titulo', 'descripcion', 'imagen']
 
 
+class EntradaForm(forms.ModelForm):
+  class Meta:
+    model = Entrada
+    fields =['titulo', 'contenido', 'imagen']
 
+class AlertaAlumnoForm(forms.ModelForm):
+  class Meta:
+    model = AlertaAlumno
+    fields = "__all__" 
 
 
 

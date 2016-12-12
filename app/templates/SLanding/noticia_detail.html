@@ -1,0 +1,18 @@
+{% extends "utils/base.html" %} {% load static %} {%block content%} {%include "utils/navbarlanding.html" %}
+<div class="container" style="margin-top: 80px">
+    <div class="jumbotron" >
+        <h1>{{entrada.titulo}}</h1>
+        <div class="row">
+          <div class="col-md-5"><p><img src="{% if entrada.imagen %}{{entrada.imagen.url}}{%endif%}" alt="" class="img-thumbnail"></p></div>
+          <div class="col-md-7">
+          <p>{{entrada.contenido}}</p>
+          </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container-fluid">
+        <p class="text-muted">Drenen Systems | 2016.</p>
+    </div>
+</footer>
+{%endblock%}

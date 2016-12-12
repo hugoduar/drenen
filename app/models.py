@@ -57,6 +57,7 @@ class Reporte(models.Model):
     titulo = models.CharField(max_length=1000)
     descripcion = models.CharField(max_length=3000)
     status = models.BooleanField(default=False)
+    imagen = models.ImageField(null=True, blank=True)
     class Meta:
         verbose_name_plural = "Reportes"
     def __unicode__(self):
@@ -66,10 +67,18 @@ class Entrada(models.Model):
     titulo = models.CharField(max_length=500)
     contenido = models.TextField()
     imagen = models.ImageField(null=True, blank=True)
+    fecha = models.DateTimeField(auto_now_add=True, null=True)
     class Meta:
         verbose_name_plural = "Entradas"
     def __unicode__(self):
         return "%s" % (self.titulo)
 
 
+class AlertaAlumno(models.Model):
+    contenido = models.CharField(max_length=500)
+    user = models.ForeignKey(User)
+    class Meta:
+        verbose_name_plural = "Alertas"
+    def __unicode__(self):
+        return "%s" % (self.contenido)   
 
