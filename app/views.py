@@ -21,25 +21,26 @@ from django.contrib.auth.models import User
 def home(request):
 	context = RequestContext(request)
 	entradas = Entrada.objects.all().order_by('-fecha')[:3]
-	return render(request, 'SLanding/index.html', context={"entradas":entradas})
+	return render(request, 'SLanding/index.html', context={"entradas":entradas, "config":Configuracion.objects.all()[0]})
 
 def faq(request):
 	context = RequestContext(request)
-	return render(request, 'SLanding/FAQ.html', context={})
+	return render(request, 'SLanding/FAQ.html', context={"config":Configuracion.objects.all()[0]})
 
 def contacto(request):
 	context = RequestContext(request)
-	return render(request, 'SLanding/contacto.html', context={})
+	return render(request, 'SLanding/contacto.html', context={"config":Configuracion.objects.all()[0]})
 
 
 def home_alumno(request):
 	context = RequestContext(request)
+    
 	if request.user.is_active:
 		alumno = Alumno.objects.get(user=request.user)
 		num_reportes = Reporte.objects.filter(alumno=alumno).count()
 		alertas = AlertaAlumno.objects.filter(user=request.user)
-
-	return render(request, 'SAlumno/index.html', context={"alumno":alumno, "num_reportes":num_reportes, "alertas":alertas})
+	
+	return render(request, 'SAlumno/index.html', context={"alumno":alumno, "num_reportes":num_reportes, "alertas":alertas, "config":Configuracion.objects.all()[0]})
 
 def reporte(request):
 	context = RequestContext(request)
@@ -78,8 +79,7 @@ def home_coordinador(request):
 	 	if num_reportes_atrasados>0:
 	 		alumno.num_reportes_atrasados = num_reportes_atrasados 
 	 		alumnos_atrasados.append(alumno)
-    
-	return render(request, 'SCoordinador/index.html', context={"alumnos":alumnos, "alumnos_atrasados":alumnos_atrasados, "entradas":entradas, "ent":ent, "reportes":reportes})
+	return render(request, 'SCoordinador/index.html', context={"alumnos":alumnos, "alumnos_atrasados":alumnos_atrasados, "entradas":entradas, "ent":ent, "reportes":reportes, "config":Configuracion.objects.all()[0]})
 
 def home_administrador(request):
 	context = RequestContext(request)
@@ -129,7 +129,7 @@ def register(request):
 def noticia(request, num):
 	context = RequestContext(request)
 	entrada = Entrada.objects.get(pk=num)
-	return render_to_response("SLanding/noticia_detail.html", {"entrada": entrada}, context)
+	return render_to_response("SLanding/noticia_detail.html", {"entrada": entrada, "config":Configuracion.objects.all()[0]}, context)
 
 def entrada(request):
     context = RequestContext(request)
@@ -148,10 +148,10 @@ def modificar_entrada(request):
     return HttpResponseRedirect('/coordinador')
 
 def eliminar_entrada(request):
-    context = RequestContext(request)
-    entrada = Entrada.objects.get(id=request.POST['id_entrada'])
-    entrada.delete()
-    return HttpResponseRedirect('/coordinador#menu2')
+   	context = RequestContext(request)
+   	entrada = Entrada.objects.get(id=request.POST['id_entrada'])
+	entrada.delete()
+	return HttpResponseRedirect('/coordinador#menu2')
 
 def login(request):
     context = RequestContext(request)
@@ -174,7 +174,7 @@ def login(request):
                 pass
         else:
             print "Invalid login details: {0}, {1}".format(username, password)
-            return render_to_response("SLanding/index.html", {"error": True, "username": username}, context)
+            return render_to_response("SLanding/index.html", {"error": True, "username": username, "config":Configuracion.objects.all()[0]}, context)
     elif request.method == 'GET' and user is None: 
 		return render_to_response("SLanding/index.html", {"error": False}, context)
     else:

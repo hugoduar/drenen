@@ -82,3 +82,14 @@ class AlertaAlumno(models.Model):
     def __unicode__(self):
         return "%s" % (self.contenido)   
 
+class Configuracion(models.Model):
+    logo = models.ImageField(null=True, blank=True)
+    color_fondo = models.CharField(max_length=6)
+    class Meta:
+        verbose_name_plural = "Configuraciones"
+    def __unicode__(self):
+        return "Configuracion"
+
+
+
+        
